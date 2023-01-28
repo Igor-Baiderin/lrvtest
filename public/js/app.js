@@ -22748,26 +22748,28 @@ __webpack_require__.r(__webpack_exports__);
       arrMessageError: null
     };
   },
-  create: function create(newOrder) {
-    var _this = this;
-    axios.post('/api/neworder', {
-      newOrder: newOrder,
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(function (response) {
-      return _this.clearOrder();
-    })["catch"](function (error) {
-      return console.log(error.response.data.errors), _this.arrMessageError = error.response.data.errors;
-    });
-  },
-  clearOrder: function clearOrder() {
-    this.newOrder.name = null;
-    this.newOrder.phone = null;
-    this.newOrder.message = null;
-    this.successMessage();
-  },
-  successMessage: function successMessage() {}
+  methods: {
+    saveOrder: function saveOrder() {
+      var _this = this;
+      axios.post('/api/neworder', {
+        newOrder: this.newOrder,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return _this.clearOrder();
+      })["catch"](function (error) {
+        return _this.arrMessageError = error.response.data.errors;
+      });
+    },
+    clearOrder: function clearOrder() {
+      this.newOrder.name = null;
+      this.newOrder.phone = null;
+      this.newOrder.message = null;
+      this.successMessage();
+    },
+    successMessage: function successMessage() {}
+  }
 });
 
 /***/ }),
@@ -22807,8 +22809,7 @@ var _hoisted_1 = {
   "class": "container"
 };
 var _hoisted_2 = {
-  "class": "row g-3 needs-validation",
-  novalidate: ""
+  "class": "row g-3 needs-validation"
 };
 var _hoisted_3 = {
   "class": "mb-3"
@@ -22831,16 +22832,12 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "for": "exampleFormControlTextarea1",
   "class": "form-label"
 }, "Текст заявки", -1 /* HOISTED */);
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_9 = {
   "class": "col-12"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "btn btn-primary",
-  type: "submit"
-}, "Отправить заявку")], -1 /* HOISTED */);
-
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_message_validation_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("message-validation-error");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control",
     id: "exampleFormControlInput0",
@@ -22872,7 +22869,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newOrder.message]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_message_validation_error, {
     messageError: $data.arrMessageError,
     name: "newOrder.message"
-  }, null, 8 /* PROPS */, ["messageError"])]), _hoisted_9])]);
+  }, null, 8 /* PROPS */, ["messageError"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "btn btn-primary",
+    onClick: _cache[3] || (_cache[3] = function () {
+      return $options.saveOrder && $options.saveOrder.apply($options, arguments);
+    })
+  }, "Отправить заявку")])])]);
 }
 
 /***/ }),

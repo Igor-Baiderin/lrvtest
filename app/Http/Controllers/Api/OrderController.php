@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -32,11 +33,11 @@ class OrderController extends Controller
             'newOrder.message' => 'required|string|min:2',
         ]);
 
-        $newOrder = new Camp();
+        $newOrder = new Order();
         $newOrder->name = $request->input('newOrder')['name'];
         $newOrder->phone = $request->input('newOrder')['phone'];
         $newOrder->message = $request->input('newOrder')['message'];
-        $newRecord->save();
+        $newOrder->save();
         return response(['newOrder' => $newOrder]);
     }
 
