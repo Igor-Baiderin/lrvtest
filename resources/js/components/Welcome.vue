@@ -31,9 +31,6 @@ export default {
   setup: () => ({
     title: 'Форма отправки заявки'
   }),
-  props: [
-    'arrMessageError'
-  ],
   components: {
     MessageValidationError,
   },

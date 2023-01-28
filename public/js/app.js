@@ -22735,7 +22735,6 @@ __webpack_require__.r(__webpack_exports__);
       title: 'Форма отправки заявки'
     };
   },
-  props: ['arrMessageError'],
   components: {
     MessageValidationError: _general_MessageValidationError__WEBPACK_IMPORTED_MODULE_0__["default"]
   },

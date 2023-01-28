@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
@@ -18,27 +20,24 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
         $this->validate($request, [
-            'order.name' => 'required|string|min:2|max:255',
-            'order.phone' => 'required|string|min:9',
-            'order.message' => 'required|string|min:9',
+            'newOrder.name' => 'required|string|min:2|max:255',
+            'newOrder.phone' => 'required|string|min:9',
+            'newOrder.message' => 'required|string|min:2',
         ]);
 
-        $newRecord = new Camp();
-        $newRecord->name = $request->input('newRecord')['name'];
-        $newRecord->slug = Str::slug($request->input('newRecord')['name']);
-        $newRecord->summary = $request->input('newRecord')['summary'];
-        $newRecord->image = $request->input('newRecord')['image'];
-        $newRecord->region_id = $request->input('newRecord')['region_id']['id'];
+        $newOrder = new Camp();
+        $newOrder->name = $request->input('newOrder')['name'];
+        $newOrder->phone = $request->input('newOrder')['phone'];
+        $newOrder->message = $request->input('newOrder')['message'];
         $newRecord->save();
-        return response(['newRecord' => $newRecord]);
+        return response(['newOrder' => $newOrder]);
     }
 
     /**
