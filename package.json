@@ -19,6 +19,7 @@
         "vue-loader": "^17.0.1"
     },
     "dependencies": {
-        "vue": "^3.2.36"
+        "bootstrap-vue": "^2.23.1",
+        "vue": "^3.2.45"
     }
 }

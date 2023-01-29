@@ -7,6 +7,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -37,7 +38,16 @@ class OrderController extends Controller
         $newOrder->name = $request->input('newOrder')['name'];
         $newOrder->phone = $request->input('newOrder')['phone'];
         $newOrder->message = $request->input('newOrder')['message'];
+        $value = config('feedback.ways');
+        // Запись в БД
         $newOrder->save();
+        // Запись в файл
+        $path = 'orders/order_'.$newOrder->created_at->format('d-m-Y_H.i');
+        Storage::disk('public')->put($path.'.json', $newOrder);
+//        Storage::disk('public')->put($path.'.txt', $value);
+        foreach ($value as $item){
+            var_dump($item);
+        }
         return response(['newOrder' => $newOrder]);
     }
 

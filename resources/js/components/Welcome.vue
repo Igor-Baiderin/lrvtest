@@ -2,6 +2,7 @@
   <div class="container">
     <h1>{{ title }}</h1>
     <div class="row g-3 needs-validation">
+      <div v-if="showAlert" class="d-inline p-2 bg-primary text-white">{{alertMessage}}</div>
       <div class="mb-3">
         <label for="exampleFormControlInput0" class="form-label">Имя</label>
         <input type="text" class="form-control" id="exampleFormControlInput0" placeholder="Ваше имя" v-model="newOrder.name">
@@ -26,6 +27,7 @@
 
 <script>
 import MessageValidationError from "./general/MessageValidationError";
+
 export default {
   name: "Welcome",
   setup: () => ({
@@ -41,6 +43,8 @@ export default {
         phone: null,
         message: null,
       },
+      showAlert: false,
+      alertMessage: 'Ваше сообщение успешно отправлено',
       arrMessageError: null
     }
   },
@@ -59,16 +63,17 @@ export default {
         this.arrMessageError = error.response.data.errors
       ));
     },
-    clearOrder()
-    {
+    clearOrder(){
       this.newOrder.name = null
       this.newOrder.phone = null
       this.newOrder.message = null
       this.successMessage()
     },
-    successMessage()
-    {
-
+    successMessage(){
+      this.showAlert = true;
+      setTimeout(() => {
+        this.showAlert = false;
+      }, 1000);
     }
   },
 }
