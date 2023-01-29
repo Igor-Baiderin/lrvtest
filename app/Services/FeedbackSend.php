@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class FeedbackSend
 {
     private $data;
+
     /**
      * @param $data
      * @return void
@@ -24,10 +25,15 @@ class FeedbackSend
     private function WriteByConfiguration()
     {
         $ways = config('feedback.ways');
-        $this->saveDB();
-        $this->saveFile();
         foreach ($ways as $item) {
-            var_dump($item);
+            switch ($item) {
+                case 'local_bd':
+                    $this->saveDB();
+                    break;
+                case 'file':
+                    $this->saveFile();
+                    break;
+            }
         }
     }
 
