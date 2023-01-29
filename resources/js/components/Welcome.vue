@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     saveOrder() {
+      this.arrMessageError = null;
       axios.post('/api/neworder',
         {
           newOrder: this.newOrder,

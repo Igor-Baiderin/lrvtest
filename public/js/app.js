@@ -22910,6 +22910,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     saveOrder: function saveOrder() {
       var _this = this;
+      this.arrMessageError = null;
       axios.post('/api/neworder', {
         newOrder: this.newOrder,
         headers: {

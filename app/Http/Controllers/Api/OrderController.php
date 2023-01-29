@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
+use App\Services\FeedbackSend;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Storage;
+use App\Facades\FeedbackService;
 
 class OrderController extends Controller
 {
@@ -33,22 +33,8 @@ class OrderController extends Controller
             'newOrder.phone' => 'required|string|min:9',
             'newOrder.message' => 'required|string|min:2',
         ]);
-
-        $newOrder = new Order();
-        $newOrder->name = $request->input('newOrder')['name'];
-        $newOrder->phone = $request->input('newOrder')['phone'];
-        $newOrder->message = $request->input('newOrder')['message'];
-        $value = config('feedback.ways');
-        // Запись в БД
-        $newOrder->save();
-        // Запись в файл
-        $path = 'orders/order_'.$newOrder->created_at->format('d-m-Y_H.i');
-        Storage::disk('public')->put($path.'.json', $newOrder);
-//        Storage::disk('public')->put($path.'.txt', $value);
-        foreach ($value as $item){
-            var_dump($item);
-        }
-        return response(['newOrder' => $newOrder]);
+        FeedbackService::send($request->input('newOrder'));
+        return response("success", 200, ['Content-Type' => 'application/javascript']);
     }
 
     /**
