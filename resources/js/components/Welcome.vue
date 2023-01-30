@@ -61,7 +61,8 @@ export default {
       ).then(response => (
         this.clearOrder()
       )).catch((error) => (
-        this.arrMessageError = error.response.data.errors
+        this.arrMessageError = error.response.data.errors,
+        error.response.data.errors = null
       ));
     },
     clearOrder(){
